@@ -1,25 +1,50 @@
 package com.gimnasio.registro.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(unique = true, nullable = false, updatable = false)
-    private Long codigo;
+    @Column(nullable = false, unique = true)
+    private Long cedula;
     @Column(nullable = false)
     private String nombre;
     @Column(nullable = false)
-    private String apellido;
+    private String apellidos;
+    private String celular;
+    private String tipo_sangre;
+    private double peso;
+    private double altura;
     @Column(nullable = false)
-    private String identificacion;
+    private int mensualidad;
     @Column(nullable = false)
     private String modalidad;
     @Column(nullable = false)
-    private Date fecha;
+    private int dia_vigencia;
+
+
+
+    /*
+
+    REQUISITOS DE INFORMACIÓN CLIENTE
+- Nombre
+- Apellidos
+- CC
+- Celular
+- RH
+
+Peso
+Estatura
+requisitos mensualidad
+Nombre del plan
+dias de vigencia
+
+  */
+
+
 }

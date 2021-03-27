@@ -9,7 +9,6 @@ import java.util.List;
 public interface ClienteService {
     boolean agregar(Cliente cliente);
     boolean eliminar(Cliente cliente);
-    Cliente obtenerPorCodigo(Long codigo);
-    Cliente obtenerPorId(String id);
+    Cliente obtenerPorCedula(Long codigo);
     List<Cliente> obtenerClientes();
 }
