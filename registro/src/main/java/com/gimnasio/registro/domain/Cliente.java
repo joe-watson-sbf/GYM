@@ -1,4 +1,4 @@
-package com.gimnasio.registro.model;
+package com.gimnasio.registro.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
-@Entity
+@Entity(name = "clientes")
 @NoArgsConstructor
 public class Cliente {
     @Id
@@ -26,25 +26,5 @@ public class Cliente {
     private String modalidad;
     @Column(nullable = false)
     private int dia_vigencia;
-
-
-
-    /*
-
-    REQUISITOS DE INFORMACIÓN CLIENTE
-- Nombre
-- Apellidos
-- CC
-- Celular
-- RH
-
-Peso
-Estatura
-requisitos mensualidad
-Nombre del plan
-dias de vigencia
-
-  */
-
 
 }

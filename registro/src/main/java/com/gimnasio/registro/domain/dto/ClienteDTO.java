@@ -1,4 +1,4 @@
-package com.gimnasio.registro.dto;
+package com.gimnasio.registro.domain.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

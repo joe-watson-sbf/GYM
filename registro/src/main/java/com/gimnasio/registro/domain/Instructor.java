@@ -1,4 +1,4 @@
-package com.gimnasio.registro.model;
+package com.gimnasio.registro.domain;
 
 import lombok.Data;
 

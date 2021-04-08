@@ -1,8 +1,9 @@
-package com.gimnasio.registro.model.exceptions;
+package com.gimnasio.registro.domain.exceptions;
 
 public class BusinessException extends RuntimeException{
 
     public BusinessException(String message) {
         super(message);
     }
+
 }
