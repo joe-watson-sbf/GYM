@@ -1,5 +1,5 @@
-# GYM
-Proyecto de clase
+# GYMNASION
+Proyecto de clase : Ingeniería Software IV
 
 Obtener los Clientes -->  GET REQUEST : http://localhost:8888/gimnasio/clientes
 Obtener Cliente por cedula  -->  GET REQUEST : http://localhost:8888/gimnasio/cliente/numeroCedula
