@@ -42,8 +42,13 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Respuesta actualizar(ClienteDTO clienteDTO) {
         boolean exist = clienteRepo.existsById(clienteDTO.getCedula());
-        if (exist) agregar(clienteDTO);
-        return new Respuesta(DATOS_CLIENTE_ACTUALIZADO);
+        if (exist) {
+            clienteRepo.save(factory.dtoToCliente(Validate.validarDTO(clienteDTO)));
+            return new Respuesta(DATOS_CLIENTE_ACTUALIZADO);
+        }else {
+            return new Respuesta(CLIENTE_NO_ENCONTRADO);
+        }
+
     }
 
     @Override
