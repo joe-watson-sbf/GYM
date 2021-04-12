@@ -18,10 +18,9 @@ public class ClienteServiceImpl implements ClienteService {
     private static String CLIENTE_NO_ENCONTRADO = "Cliente no encontrado";
     private static String DATOS_CLIENTE_ACTUALIZADO = "Se ha actualizado exitosamente!!!";
     private static String CLIENTE_REGISTRADO = "Se ha registrado exitosamente!!!";
+    private static String DATOS_DUPLICADOS = "Ya existe un cliente registrado con este numero de cedula!!!";
     private static String CLIENTE_NO_ELIMINADO = "No se puede eliminar el cliente, verifique el numero de cedula por favor!!!";
     private static String CLIENTE_ELIMINADO = "Elimanado exitosamente";
-
-
 
 
     @Autowired
@@ -32,8 +31,12 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Respuesta agregar(ClienteDTO clienteDTO) {
-        clienteRepo.save(factory.dtoToCliente(Validate.validarDTO(clienteDTO)));
-        return new Respuesta(CLIENTE_REGISTRADO);
+        if (!clienteRepo.existsById(clienteDTO.getCedula())){
+            clienteRepo.save(factory.dtoToCliente(Validate.validarDTO(clienteDTO)));
+            return new Respuesta(CLIENTE_REGISTRADO);
+        }else {
+            return new Respuesta(DATOS_DUPLICADOS);
+        }
     }
 
     @Override
