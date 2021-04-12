@@ -1,6 +1,5 @@
 package com.gimnasio.registro.domain.service;
 
-import com.gimnasio.registro.domain.Cliente;
 import com.gimnasio.registro.domain.dto.ClienteDTO;
 import com.gimnasio.registro.domain.exceptions.BusinessException;
 import com.gimnasio.registro.domain.repository.ClienteRepo;

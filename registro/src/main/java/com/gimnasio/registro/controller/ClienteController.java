@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("gimnasio/")
+@RequestMapping("api/gimnasio/")
 public class ClienteController {
 
     @Autowired
