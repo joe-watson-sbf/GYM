@@ -26,5 +26,7 @@ public class Cliente {
     private String modalidad;
     @Column(nullable = false)
     private int dia_vigencia;
+    @Column(nullable = false)
+    private String password;
 
 }

@@ -1,9 +1,8 @@
-package com.gimnasio.registro.util.factory;
+package com.gimnasio.registro.domain.factory;
 
 import com.gimnasio.registro.domain.dto.ClienteDTO;
 import com.gimnasio.registro.domain.Cliente;
 import com.gimnasio.registro.util.Validate;
-import com.gimnasio.registro.domain.exceptions.BusinessException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,8 +10,6 @@ import java.util.List;
 
 @Component
 public class ClienteFactory {
-
-
 
     public List<ClienteDTO> clienteToDto(List<Cliente> clienteList){
         List<ClienteDTO> clienteDTOS = new ArrayList<>();
@@ -35,6 +32,7 @@ public class ClienteFactory {
         dto.setModalidad(cliente.getModalidad());
         dto.setPeso(cliente.getPeso());
         dto.setTipo_sangre(cliente.getTipo_sangre());
+        dto.setPassword(cliente.getPassword());
 
         return dto;
     }
@@ -52,6 +50,7 @@ public class ClienteFactory {
         cliente.setPeso(dto.getPeso());
         cliente.setDia_vigencia(dto.getDia_vigencia());
         cliente.setTipo_sangre(dto.getTipo_sangre());
+        cliente.setPassword(dto.getPassword());
 
         return cliente;
     }

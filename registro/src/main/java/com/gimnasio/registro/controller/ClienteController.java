@@ -1,9 +1,8 @@
 package com.gimnasio.registro.controller;
 
-import com.gimnasio.registro.domain.Cliente;
 import com.gimnasio.registro.domain.dto.ClienteDTO;
 import com.gimnasio.registro.domain.exceptions.BusinessException;
-import com.gimnasio.registro.service.ClienteService;
+import com.gimnasio.registro.domain.service.ClienteService;
 import com.gimnasio.registro.util.Respuesta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +25,7 @@ public class ClienteController {
     }
 
     @GetMapping("/clientes")
-    public ResponseEntity<List<Cliente>> clientes(){
+    public ResponseEntity<List<ClienteDTO>> clientes(){
         return new ResponseEntity<>(clienteService.obtenerClientes(), HttpStatus.OK);
     }
 
@@ -39,7 +38,7 @@ public class ClienteController {
         }
     }
 
-    @PostMapping("/cliente")
+    @PostMapping("/cliente/save")
     public ResponseEntity<Respuesta> addCliente(@RequestBody ClienteDTO clienteDTO) throws Exception {
         try {
             return new ResponseEntity<>(clienteService.agregar(clienteDTO), HttpStatus.CREATED);
@@ -48,12 +47,30 @@ public class ClienteController {
         }
     }
 
-    @DeleteMapping("cliente")
+    @DeleteMapping("cliente/delete")
     public ResponseEntity<Respuesta> deleteCliente(@RequestBody ClienteDTO clienteDTO){
         try {
             return new ResponseEntity<>(clienteService.eliminar(clienteDTO), HttpStatus.OK);
         }catch (BusinessException ex){
             return new ResponseEntity<>(new Respuesta(ex.getMessage()), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("cliente/delete/{cedula}")
+    public ResponseEntity<Respuesta> deleteCliente(@PathVariable Long cedula){
+        try {
+            return new ResponseEntity<>(clienteService.eliminarPorId(cedula), HttpStatus.OK);
+        }catch (BusinessException ex){
+            return new ResponseEntity<>(new Respuesta(ex.getMessage()), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/cliente/update")
+    public ResponseEntity<Respuesta> actualizarDatos(@RequestBody ClienteDTO clienteDTO){
+        try {
+            return new ResponseEntity<>(clienteService.actualizar(clienteDTO), HttpStatus.OK);
+        }catch (BusinessException ex){
+            return new ResponseEntity<>(new Respuesta(ex.getMessage()), HttpStatus.NOT_MODIFIED);
         }
     }
 }

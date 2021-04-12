@@ -1,12 +1,12 @@
-package com.gimnasio.registro.service;
+package com.gimnasio.registro.domain.service;
 
 import com.gimnasio.registro.domain.Cliente;
 import com.gimnasio.registro.domain.dto.ClienteDTO;
 import com.gimnasio.registro.domain.exceptions.BusinessException;
-import com.gimnasio.registro.repository.ClienteRepo;
+import com.gimnasio.registro.domain.repository.ClienteRepo;
 import com.gimnasio.registro.util.Respuesta;
 import com.gimnasio.registro.util.Validate;
-import com.gimnasio.registro.util.factory.ClienteFactory;
+import com.gimnasio.registro.domain.factory.ClienteFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class ClienteServiceImpl implements ClienteService {
 
     private static String CLIENTE_NO_ENCONTRADO = "Cliente no encontrado";
-    private static String CLIENTE_NO_REGISTRADO = "Se ocurre un error al registrar el cliente, revisar los datos y intente de nuevo!";
+    private static String DATOS_CLIENTE_ACTUALIZADO = "Se ha actualizado exitosamente!!!";
     private static String CLIENTE_REGISTRADO = "Se ha registrado exitosamente!!!";
     private static String CLIENTE_NO_ELIMINADO = "No se puede eliminar el cliente, verifique el numero de cedula por favor!!!";
     private static String CLIENTE_ELIMINADO = "Elimanado exitosamente";
@@ -31,20 +31,32 @@ public class ClienteServiceImpl implements ClienteService {
 
 
     @Override
-    public Respuesta agregar(ClienteDTO clienteDTO) throws Exception {
-        clienteDTO = Validate.validarDTO(clienteDTO);
-        try {
-            clienteRepo.save(factory.dtoToCliente(clienteDTO));
-            return new Respuesta(CLIENTE_REGISTRADO);
-        }catch (Exception ex){
-            throw new BusinessException(CLIENTE_NO_REGISTRADO);
-        }
+    public Respuesta agregar(ClienteDTO clienteDTO) {
+        clienteRepo.save(factory.dtoToCliente(Validate.validarDTO(clienteDTO)));
+        return new Respuesta(CLIENTE_REGISTRADO);
+    }
+
+    @Override
+    public Respuesta actualizar(ClienteDTO clienteDTO) {
+        boolean exist = clienteRepo.existsById(clienteDTO.getCedula());
+        if (exist) agregar(clienteDTO);
+        return new Respuesta(DATOS_CLIENTE_ACTUALIZADO);
     }
 
     @Override
     public Respuesta eliminar(ClienteDTO clienteDTO) {
         try {
             clienteRepo.delete(factory.dtoToCliente(clienteDTO));
+            return new Respuesta(CLIENTE_ELIMINADO);
+        }catch (Exception ex){
+            throw new BusinessException(CLIENTE_NO_ELIMINADO);
+        }
+    }
+
+    @Override
+    public Respuesta eliminarPorId(Long cedula) {
+        try {
+            clienteRepo.deleteById(cedula);
             return new Respuesta(CLIENTE_ELIMINADO);
         }catch (Exception ex){
             throw new BusinessException(CLIENTE_NO_ELIMINADO);
@@ -63,7 +75,7 @@ public class ClienteServiceImpl implements ClienteService {
 
 
     @Override
-    public List<Cliente> obtenerClientes() {
-        return clienteRepo.findAll();
+    public List<ClienteDTO> obtenerClientes() {
+        return factory.clienteToDto(clienteRepo.findAll());
     }
 }

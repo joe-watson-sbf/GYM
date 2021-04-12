@@ -15,6 +15,8 @@ public class Validate {
     private static String NOMBRE_VACIO = "Su numbre no puede ser vacio!";
     private static String DIA_VIGENCIA_NO_ACEPTADO = "El día vigencia debe ser mayor a 1!";
     private static String MENSUALIDAD_NO_ACEPTADO = "La mensualidad no puede ser menor que 5000!";
+    private static String CONTRESENA_INVALIDA="Su contresaña debe contener solo numero o digito!!!";
+    private static String LONGITUD_CONTRASENA_INVALIDA = "La contraseña debe tener al menos 8 caracteres!!!";
 
 
     public static String unSoloEspacio(String cadena) {
@@ -92,6 +94,20 @@ public class Validate {
                 throw new BusinessException(MODALIDAD_REQUERIDO);
         }
     }
+    private static void validarContrasena(String contrasena){
+        if(contrasena.length()<8){
+            throw new BusinessException(LONGITUD_CONTRASENA_INVALIDA);
+        }else {
+            for (int i = 0; i < contrasena.length(); i++) {
+                boolean letterOrDigit = Character.isLetterOrDigit(contrasena.charAt(i));
+                if (letterOrDigit) {
+                    continue;
+                }
+                throw new BusinessException(CONTRESENA_INVALIDA);
+            }
+        }
+
+    }
 
     public static ClienteDTO validarDTO(ClienteDTO clienteDTO){
         clienteDTO.setTipo_sangre(definirTipoSangre(clienteDTO.getTipo_sangre()));
@@ -101,21 +117,22 @@ public class Validate {
         if(clienteDTO.getCelular().length()<6) {
             throw new BusinessException(CEDULA_NO_ACEPTADO);
         }
-        if(clienteDTO.getApellidos().isEmpty() || clienteDTO.getApellidos().isBlank() || clienteDTO.getApellidos().equals(null)){
+        if(clienteDTO.getApellidos().isEmpty() || clienteDTO.getApellidos().isBlank() || clienteDTO.getApellidos() == null){
             throw new BusinessException(APELLIDO_VACIO);
         }
-        if(clienteDTO.getNombre().isEmpty() || clienteDTO.getNombre().isBlank() || clienteDTO.getNombre().equals(null)){
+        if(clienteDTO.getNombre().isEmpty() || clienteDTO.getNombre().isBlank() || clienteDTO.getNombre() == null){
             throw new BusinessException(NOMBRE_VACIO);
         }
         clienteDTO.setApellidos(unSoloEspacio(clienteDTO.getApellidos()));
         clienteDTO.setNombre(unSoloEspacio(clienteDTO.getNombre()));
 
-        if(clienteDTO.getDia_vigencia()<1){
+        if(clienteDTO.getDia_vigencia()<3){
             throw new BusinessException(DIA_VIGENCIA_NO_ACEPTADO);
         }
         if(clienteDTO.getMensualidad()<5000){
             throw new BusinessException(MENSUALIDAD_NO_ACEPTADO);
         }
+        validarContrasena(clienteDTO.getPassword());
         return clienteDTO;
     }
 }

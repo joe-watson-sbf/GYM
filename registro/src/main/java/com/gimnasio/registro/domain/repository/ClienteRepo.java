@@ -1,4 +1,4 @@
-package com.gimnasio.registro.repository;
+package com.gimnasio.registro.domain.repository;
 
 import com.gimnasio.registro.domain.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
