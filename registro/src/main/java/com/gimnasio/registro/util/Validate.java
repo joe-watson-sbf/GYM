@@ -17,6 +17,8 @@ public class Validate {
     private static String MENSUALIDAD_NO_ACEPTADO = "La mensualidad no puede ser menor que 5000!";
     private static String CONTRESENA_INVALIDA="Su contresaña debe contener solo numero o digito!!!";
     private static String LONGITUD_CONTRASENA_INVALIDA = "La contraseña debe tener al menos 8 caracteres!!!";
+    private static String NUMERO_CELULAR_INVALIDO = "El numero de celular debe tener minimo 10 cararcteres si no incluye el codigo del marcado, de lo contrario 13.";
+    private static String NUMERO_MARCADOR = "Numero marcador del pais requerido!";
 
 
     public static String unSoloEspacio(String cadena) {
@@ -81,6 +83,27 @@ public class Validate {
         }
     }
 
+    // VALIDACION DE NUMERO DE CELULAR COLOMBIANO
+
+    public static void validarNumeroCelular(String celular){
+        // +57 333 333 4545
+
+        // Colombia
+        if(celular.startsWith("+57")){
+            if(!(celular.length()==13)){
+                throw new BusinessException(NUMERO_CELULAR_INVALIDO);
+            }
+        }else if(celular.startsWith("+")){
+            if(!(celular.length()>=10 || celular.length()<=13)){
+                throw new BusinessException(NUMERO_CELULAR_INVALIDO);
+            }
+        }else{
+            throw new BusinessException(NUMERO_MARCADOR);
+        }
+    }
+
+
+
     public static String definirModalidad(String modalidad){
         modalidad = Validate.quitarEspacios(modalidad.toUpperCase());
         switch (modalidad){
@@ -132,7 +155,7 @@ public class Validate {
         if(clienteDTO.getMensualidad()<5000){
             throw new BusinessException(MENSUALIDAD_NO_ACEPTADO);
         }
-        validarContrasena(clienteDTO.getPassword());
+        // validarContrasena(clienteDTO.getPassword());
         return clienteDTO;
     }
 }

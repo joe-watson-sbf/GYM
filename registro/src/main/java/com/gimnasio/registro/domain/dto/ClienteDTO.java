@@ -16,5 +16,5 @@ public class ClienteDTO {
     private int mensualidad;
     private String modalidad;
     private int dia_vigencia;
-    private String password;
+    private String eps;
 }

@@ -32,7 +32,8 @@ public class ClienteFactory {
         dto.setModalidad(cliente.getModalidad());
         dto.setPeso(cliente.getPeso());
         dto.setTipo_sangre(cliente.getTipo_sangre());
-        dto.setPassword(cliente.getPassword());
+        dto.setEps(cliente.getEps());
+        //dto.setPassword(cliente.getPassword());
 
         return dto;
     }
@@ -50,7 +51,8 @@ public class ClienteFactory {
         cliente.setPeso(dto.getPeso());
         cliente.setDia_vigencia(dto.getDia_vigencia());
         cliente.setTipo_sangre(dto.getTipo_sangre());
-        cliente.setPassword(dto.getPassword());
+        cliente.setEps(dto.getEps());
+        //cliente.setPassword(dto.getPassword());
 
         return cliente;
     }
