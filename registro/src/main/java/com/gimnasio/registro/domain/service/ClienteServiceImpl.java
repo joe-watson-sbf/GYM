@@ -51,16 +51,6 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public Respuesta eliminar(ClienteDTO clienteDTO) {
-        try {
-            clienteRepo.delete(factory.dtoToCliente(clienteDTO));
-            return new Respuesta(CLIENTE_ELIMINADO);
-        }catch (Exception ex){
-            throw new BusinessException(CLIENTE_NO_ELIMINADO);
-        }
-    }
-
-    @Override
     public Respuesta eliminarPorId(Long cedula) {
         try {
             clienteRepo.deleteById(cedula);

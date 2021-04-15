@@ -42,10 +42,10 @@ public class ClienteFactory {
         Cliente cliente = new Cliente();
 
         cliente.setCedula(dto.getCedula());
-        cliente.setApellidos(Validate.unSoloEspacio(dto.getApellidos()));
-        cliente.setNombre(Validate.unSoloEspacio(dto.getNombre()));
+        cliente.setApellidos(dto.getApellidos());
+        cliente.setNombre(dto.getNombre());
         cliente.setAltura(dto.getAltura());
-        cliente.setCelular(Validate.quitarEspacios(dto.getCelular()));
+        cliente.setCelular(dto.getCelular());
         cliente.setMensualidad(dto.getMensualidad());
         cliente.setModalidad(dto.getModalidad());
         cliente.setPeso(dto.getPeso());

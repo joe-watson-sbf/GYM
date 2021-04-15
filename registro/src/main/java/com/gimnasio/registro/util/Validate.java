@@ -22,7 +22,7 @@ public class Validate {
     private static String EPS_VACIO = "Campo EPS vacío!!!";
 
 
-    public static String unSoloEspacio(String cadena) {
+    private static String unSoloEspacio(String cadena) {
         String regex = "\\s{2,}";
         Pattern patron = Pattern.compile(regex, Pattern.MULTILINE);
         Matcher validador = patron.matcher(cadena);
@@ -31,49 +31,13 @@ public class Validate {
     }
 
 
-    public static String quitarEspacios(String cadena) {
+    private static String quitarEspacios(String cadena) {
         String regex = "\\s+";
         Pattern patron = Pattern.compile(regex, Pattern.MULTILINE);
         Matcher validador = patron.matcher(cadena);
         return validador.replaceAll("").trim();
     }
 
-
-    public static void email(String email, String vacio, String invalido) {
-
-        if (email == null) {
-            throw new BusinessException(vacio);
-        } else {
-            if (!(email.contains(".") && email.contains("@"))) {
-                throw new BusinessException(invalido);
-            }
-        }
-    }
-
-    public static void estaVacia(String identificador, String mensaje) {
-
-        if (identificador == null || identificador.isEmpty()) {
-            throw new BusinessException(mensaje);
-        }
-    }
-
-    public static void fechaNula(Date fechaInicio, String mensaje) throws BusinessException {
-        if(fechaInicio == null){
-            throw new BusinessException(mensaje);
-        }
-    }
-
-    public static void encontrarCero(Double valor, String mensaje){
-        if (valor <= 0){
-            throw new BusinessException(mensaje);
-        }
-    }
-
-    public static void ObjetoNulo(Object object, String mensaje) throws BusinessException {
-        if(object == null){
-            throw new BusinessException(mensaje);
-        }
-    }
 
     public static String definirTipoSangre(String tipo){
         tipo = Validate.quitarEspacios(tipo.toUpperCase());
@@ -84,22 +48,18 @@ public class Validate {
         }
     }
 
-    // VALIDACION DE NUMERO DE CELULAR COLOMBIANO
 
     public static void validarNumeroCelular(String celular){
-        // +57 333 333 4545
-
-        // Colombia
         if(celular.startsWith("+57")){
             if(!(celular.length()==13)){
                 throw new BusinessException(NUMERO_CELULAR_INVALIDO);
             }
-        }else if(celular.startsWith("+")){
-            if(!(celular.length()>=10 || celular.length()<=13)){
-                throw new BusinessException(NUMERO_CELULAR_INVALIDO);
-            }
-        }else{
+        }
+        if(!celular.startsWith("+")){
             throw new BusinessException(NUMERO_MARCADOR);
+        }
+        if(!(celular.length()>=10 && celular.length()<=13)){
+            throw new BusinessException(NUMERO_CELULAR_INVALIDO);
         }
     }
 
@@ -120,20 +80,6 @@ public class Validate {
                 throw new BusinessException(MODALIDAD_REQUERIDO);
         }
     }
-    private static void validarContrasena(String contrasena){
-        if(contrasena.length()<8){
-            throw new BusinessException(LONGITUD_CONTRASENA_INVALIDA);
-        }else {
-            for (int i = 0; i < contrasena.length(); i++) {
-                boolean letterOrDigit = Character.isLetterOrDigit(contrasena.charAt(i));
-                if (letterOrDigit) {
-                    continue;
-                }
-                throw new BusinessException(CONTRESENA_INVALIDA);
-            }
-        }
-
-    }
 
     public static ClienteDTO validarDTO(ClienteDTO clienteDTO){
         clienteDTO.setTipo_sangre(definirTipoSangre(clienteDTO.getTipo_sangre()));
@@ -153,14 +99,13 @@ public class Validate {
         clienteDTO.setApellidos(unSoloEspacio(clienteDTO.getApellidos()));
         clienteDTO.setNombre(unSoloEspacio(clienteDTO.getNombre()));
 
-        if(clienteDTO.getDia_vigencia()<3){
+        if(clienteDTO.getDia_vigencia()<1){
             throw new BusinessException(DIA_VIGENCIA_NO_ACEPTADO);
         }
         if(clienteDTO.getMensualidad()<5000){
             throw new BusinessException(MENSUALIDAD_NO_ACEPTADO);
         }
 
-        // validarContrasena(clienteDTO.getPassword());
         return clienteDTO;
     }
 }

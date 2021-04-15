@@ -47,14 +47,6 @@ public class ClienteController {
         }
     }
 
-    @DeleteMapping("cliente/delete")
-    public ResponseEntity<Respuesta> deleteCliente(@RequestBody ClienteDTO clienteDTO){
-        try {
-            return new ResponseEntity<>(clienteService.eliminar(clienteDTO), HttpStatus.OK);
-        }catch (BusinessException ex){
-            return new ResponseEntity<>(new Respuesta(ex.getMessage()), HttpStatus.NOT_FOUND);
-        }
-    }
 
     @DeleteMapping("cliente/delete/{cedula}")
     public ResponseEntity<Respuesta> deleteCliente(@PathVariable Long cedula){

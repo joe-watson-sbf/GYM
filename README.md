@@ -10,7 +10,6 @@ Registrar Cliente --> POST REQUEST --> http://localhost:8888/api/gimnasio/client
 
 Actualizar datos Cliente --> PUT REQUEST --> http://localhost:8888/api/gimnasio/cliente/update
 
-Eliminar Cliente --> DELETE REQUEST --> http://localhost:8888/api/gimnasio/cliente/delete
 
 Eliminar por cedula Cliente --> DELETE REQUEST --> http://localhost:8888/api/gimnasio/cliente/delete/{cedula}
 
