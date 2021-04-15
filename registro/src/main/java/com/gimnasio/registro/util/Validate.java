@@ -19,6 +19,7 @@ public class Validate {
     private static String LONGITUD_CONTRASENA_INVALIDA = "La contraseña debe tener al menos 8 caracteres!!!";
     private static String NUMERO_CELULAR_INVALIDO = "El numero de celular debe tener minimo 10 cararcteres si no incluye el codigo del marcado, de lo contrario 13.";
     private static String NUMERO_MARCADOR = "Numero marcador del pais requerido!";
+    private static String EPS_VACIO = "Campo EPS vacío!!!";
 
 
     public static String unSoloEspacio(String cadena) {
@@ -102,7 +103,9 @@ public class Validate {
         }
     }
 
-
+    public static void validarEPS(String eps){
+        if(eps.isBlank()) throw new BusinessException(EPS_VACIO);
+    }
 
     public static String definirModalidad(String modalidad){
         modalidad = Validate.quitarEspacios(modalidad.toUpperCase());
@@ -135,8 +138,9 @@ public class Validate {
     public static ClienteDTO validarDTO(ClienteDTO clienteDTO){
         clienteDTO.setTipo_sangre(definirTipoSangre(clienteDTO.getTipo_sangre()));
         clienteDTO.setModalidad(definirModalidad(clienteDTO.getModalidad()));
+        validarNumeroCelular(clienteDTO.getCelular());
         clienteDTO.setCelular(quitarEspacios(clienteDTO.getCelular()));
-
+        validarEPS(clienteDTO.getEps());
         if(clienteDTO.getCelular().length()<6) {
             throw new BusinessException(CEDULA_NO_ACEPTADO);
         }
@@ -155,6 +159,7 @@ public class Validate {
         if(clienteDTO.getMensualidad()<5000){
             throw new BusinessException(MENSUALIDAD_NO_ACEPTADO);
         }
+
         // validarContrasena(clienteDTO.getPassword());
         return clienteDTO;
     }

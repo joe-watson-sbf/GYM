@@ -28,6 +28,7 @@ public class Cliente {
     private int dia_vigencia;
     @Column(nullable = false)
     private String eps;
+
     /*
     @Column(nullable = false)
     private String password;
