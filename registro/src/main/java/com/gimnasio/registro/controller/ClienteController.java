@@ -47,7 +47,6 @@ public class ClienteController {
         }
     }
 
-
     @DeleteMapping("cliente/delete/{cedula}")
     public ResponseEntity<Respuesta> deleteCliente(@PathVariable Long cedula){
         try {
