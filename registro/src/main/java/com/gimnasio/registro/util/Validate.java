@@ -13,8 +13,8 @@ public class Validate {
     private static String CEDULA_NO_ACEPTADO = "Ingrese un numero de cedula valido!";
     private static String APELLIDO_VACIO = "Su apellido no puede ser vacio!";
     private static String NOMBRE_VACIO = "Su numbre no puede ser vacio!";
-    private static String DIA_VIGENCIA_NO_ACEPTADO = "El día vigencia debe ser mayor a 1!";
-    private static String MENSUALIDAD_NO_ACEPTADO = "La mensualidad no puede ser menor que 5000!";
+    private static String DIA_VIGENCIA_NO_ACEPTADO = "El día vigencia debe ser mayor o igual a 1!";
+    private static String MENSUALIDAD_NO_ACEPTADO = "La mensualidad no puede ser menor que 1!";
     private static String CONTRESENA_INVALIDA="Su contresaña debe contener solo numero o digito!!!";
     private static String LONGITUD_CONTRASENA_INVALIDA = "La contraseña debe tener al menos 8 caracteres!!!";
     private static String NUMERO_CELULAR_INVALIDO = "El numero de celular debe tener minimo 10 cararcteres si no incluye el codigo del marcado, de lo contrario 13.";
@@ -102,7 +102,7 @@ public class Validate {
         if(clienteDTO.getDia_vigencia()<1){
             throw new BusinessException(DIA_VIGENCIA_NO_ACEPTADO);
         }
-        if(clienteDTO.getMensualidad()<5000){
+        if(clienteDTO.getMensualidad()<1){
             throw new BusinessException(MENSUALIDAD_NO_ACEPTADO);
         }
 

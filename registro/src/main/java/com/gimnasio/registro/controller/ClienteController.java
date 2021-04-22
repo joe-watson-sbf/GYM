@@ -14,6 +14,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping("api/gimnasio/")
+//@CrossOrigin(origins="http://127.0.0.1:5500")http:
+@CrossOrigin(origins="http://localhost:4200/localhost:4200")
+
 public class ClienteController {
 
     @Autowired
@@ -38,8 +41,8 @@ public class ClienteController {
         }
     }
 
-    @PostMapping("/cliente/save")
-    public ResponseEntity<Respuesta> addCliente(@RequestBody ClienteDTO clienteDTO) throws Exception {
+    @PostMapping("/cliente")
+    public ResponseEntity<Respuesta> addCliente(@RequestBody ClienteDTO clienteDTO) {
         try {
             return new ResponseEntity<>(clienteService.agregar(clienteDTO), HttpStatus.CREATED);
         }catch (BusinessException ex){
@@ -47,7 +50,7 @@ public class ClienteController {
         }
     }
 
-    @DeleteMapping("cliente/delete/{cedula}")
+    @DeleteMapping("cliente/{cedula}")
     public ResponseEntity<Respuesta> deleteCliente(@PathVariable Long cedula){
         try {
             return new ResponseEntity<>(clienteService.eliminarPorId(cedula), HttpStatus.OK);
@@ -56,7 +59,7 @@ public class ClienteController {
         }
     }
 
-    @PutMapping("/cliente/update")
+    @PutMapping("/cliente")
     public ResponseEntity<Respuesta> actualizarDatos(@RequestBody ClienteDTO clienteDTO){
         try {
             return new ResponseEntity<>(clienteService.actualizar(clienteDTO), HttpStatus.OK);
