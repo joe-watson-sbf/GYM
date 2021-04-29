@@ -9,14 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
 @RequestMapping("api/gimnasio/")
-//@CrossOrigin(origins="http://127.0.0.1:5500")http:
-@CrossOrigin(origins="http://localhost:4200/localhost:4200")
-
+@CrossOrigin(origins="http://localhost:4200")
 public class ClienteController {
 
     @Autowired

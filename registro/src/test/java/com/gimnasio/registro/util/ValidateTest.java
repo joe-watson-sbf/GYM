@@ -1,10 +1,7 @@
 package com.gimnasio.registro.util;
 
-
 import com.gimnasio.registro.domain.dto.ClienteDTO;
-import com.gimnasio.registro.domain.exceptions.BusinessException;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ValidateTest {

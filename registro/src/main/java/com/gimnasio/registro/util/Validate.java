@@ -2,8 +2,6 @@ package com.gimnasio.registro.util;
 
 import com.gimnasio.registro.domain.dto.ClienteDTO;
 import com.gimnasio.registro.domain.exceptions.BusinessException;
-
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -87,9 +85,7 @@ public class Validate {
         validarNumeroCelular(clienteDTO.getCelular());
         clienteDTO.setCelular(quitarEspacios(clienteDTO.getCelular()));
         validarEPS(clienteDTO.getEps());
-        if(clienteDTO.getCelular().length()<6) {
-            throw new BusinessException(CEDULA_NO_ACEPTADO);
-        }
+
         if(clienteDTO.getApellidos().isEmpty() || clienteDTO.getApellidos().isBlank() || clienteDTO.getApellidos() == null){
             throw new BusinessException(APELLIDO_VACIO);
         }
@@ -105,6 +101,10 @@ public class Validate {
         if(clienteDTO.getMensualidad()<1){
             throw new BusinessException(MENSUALIDAD_NO_ACEPTADO);
         }
+        if(clienteDTO.getCedula().toString().length()<6){
+            throw new BusinessException(CEDULA_NO_ACEPTADO);
+        }
+
 
         return clienteDTO;
     }

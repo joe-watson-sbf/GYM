@@ -24,17 +24,19 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Autowired
     ClienteRepo clienteRepo;
+
     @Autowired
     ClienteFactory factory;
 
 
     @Override
     public Respuesta agregar(ClienteDTO clienteDTO) {
-        if (!clienteRepo.existsById(clienteDTO.getCedula())){
+        boolean exist = clienteRepo.existsById(clienteDTO.getCedula());
+        if (exist){
+            throw  new BusinessException(DATOS_DUPLICADOS);
+        }else {
             clienteRepo.save(factory.dtoToCliente(Validate.validarDTO(clienteDTO)));
             return new Respuesta(CLIENTE_REGISTRADO);
-        }else {
-            return new Respuesta(DATOS_DUPLICADOS);
         }
     }
 
@@ -45,9 +47,8 @@ public class ClienteServiceImpl implements ClienteService {
             clienteRepo.save(factory.dtoToCliente(Validate.validarDTO(clienteDTO)));
             return new Respuesta(DATOS_CLIENTE_ACTUALIZADO);
         }else {
-            return new Respuesta(CLIENTE_NO_ENCONTRADO);
+            throw new BusinessException(CLIENTE_NO_ENCONTRADO);
         }
-
     }
 
     @Override

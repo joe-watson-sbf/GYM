@@ -2,7 +2,6 @@ package com.gimnasio.registro.domain.factory;
 
 import com.gimnasio.registro.domain.dto.ClienteDTO;
 import com.gimnasio.registro.domain.Cliente;
-import com.gimnasio.registro.util.Validate;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -33,7 +32,6 @@ public class ClienteFactory {
         dto.setPeso(cliente.getPeso());
         dto.setTipo_sangre(cliente.getTipo_sangre());
         dto.setEps(cliente.getEps());
-        //dto.setPassword(cliente.getPassword());
 
         return dto;
     }
@@ -52,7 +50,6 @@ public class ClienteFactory {
         cliente.setDia_vigencia(dto.getDia_vigencia());
         cliente.setTipo_sangre(dto.getTipo_sangre());
         cliente.setEps(dto.getEps());
-        //cliente.setPassword(dto.getPassword());
 
         return cliente;
     }
